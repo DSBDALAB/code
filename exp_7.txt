@@ -1,0 +1,126 @@
+Source Code Exp.7:
+Home.jsp:
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<a href="http://localhost:8080/SimpleLogin/home.jsp"> Home</a>
+<a href="http://localhost:8080/SimpleLogin/login.jsp"> Login</a>
+</body>
+</html>
+Login.jsp:
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="LoginCheck" method="post">
+<pre>
+UserName :<input type="text" name="name">
+Password: <input type="text" name=pass>
+ <input type="Submit" value="Submit">
+</pre>
+</form>
+</body>
+</html>
+Welcome.jsp:
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+< center>
+< br >< br>
+< font color= "gray" size= "5">
+ Welcome!
+ </ font>
+ </ center>
+<font color="gray" size="5">
+ User Name is :${name}<br/>
+</font>
+<font color="gray" size="5">
+ Password is :${pass}
+</font>
+ 
+</body>
+</html>
+Error.jsp:
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+Unsuccessful login!
+</body>
+</html>
+LoginServlet:
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+/**
+ * Servlet implementation class LoginCheck
+ */
+public class LoginCheck extends HttpServlet {
+private static final long serialVersionUID = 1L;
+ 
+ /**
+ * @see HttpServlet#HttpServlet()
+ */
+ public LoginCheck() {
+ super();
+ // TODO Auto-generated constructor stub
+ }
+/**
+ * @see HttpServlet#doGet(HttpServletRequest request, 
+HttpServletResponse response)
+ */
+protected void doGet(HttpServletRequest request, 
+HttpServletResponse response) throws ServletException, 
+IOException {
+// TODO Auto-generated method stub
+response.getWriter().append("Served at: 
+").append(request.getContextPath());
+}
+/**
+ * @see HttpServlet#doPost(HttpServletRequest request, 
+HttpServletResponse response)
+ */
+protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) throws ServletException, 
+IOException {
+doGet(request, response);
+String name=request.getParameter("name");
+String pass=request.getParameter("pass");
+if(name.equals("Sujata") && pass.equals("pass123"))
+{
+HttpSession session=request.getSession();
+session.setAttribute("name", name);
+session.setAttribute("pass", pass);
+response.sendRedirect("member.jsp");
+}
+else
+{
+response.sendRedirect("error.jsp");
+}
+ }
+}
